@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Business-Directory",
+    "scheme": "Business-Directory",
     "slug": "Business-Directory",
     "version": "1.0.0",
     "orientation": "portrait",
