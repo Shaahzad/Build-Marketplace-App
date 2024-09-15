@@ -51,6 +51,7 @@ const getCategoryList = async () => {
           {/* category drop down */}
           <Picker selectedValue={values.category} onValueChange={handleChange('category')}>
            <Picker.Item label='DropDown' value={'DropDown'}/>
+           <Picker.Item label='DropDown' value={'DropDown'}/>
           </Picker>
           <Button title='Submit' onPress={handleSubmit} className="mt-7"/>
       </View>
