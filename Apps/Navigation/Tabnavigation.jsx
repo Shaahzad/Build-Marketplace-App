@@ -5,16 +5,53 @@ import Homescreen from '../screens/Homescreen';
 import Explorescreen from '../screens/Explorescreen';
 import Addpostscreen from '../screens/Addpostscreen';
 import Profilescreen from '../screens/Profilescreen';
-
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 const Tab = createBottomTabNavigator();
 
 export default function Tabnavigation() {
   return (
-    <Tab.Navigator>
-    <Tab.Screen name='home' component={Homescreen}/>
-    <Tab.Screen name='explore' component={Explorescreen}/>
-    <Tab.Screen name='addpost' component={Addpostscreen}/>
-    <Tab.Screen name='profile' component={Profilescreen}/>
+    <Tab.Navigator screenOptions={{
+      headerShown: false
+    }}>
+    <Tab.Screen name='home' component={Homescreen} 
+    options={{
+      tabBarLabel:({color})=>(
+        <Text style={{color:color,fontSize:12, marginBottom:3}}>Home</Text>
+      ),
+      tabBarIcon:({color,size})=>(
+        <FontAwesome name="home" size={size} color={color} />
+      )
+    }}
+    />
+    <Tab.Screen name='explore' component={Explorescreen}
+    options={{
+      tabBarLabel:({color})=>(
+        <Text style={{color:color,fontSize:12, marginBottom:3}}>Explore</Text>
+      ),
+      tabBarIcon:({color,size})=>(
+      <FontAwesome name="search" size={24} color="black" />      )
+    }}
+    />
+    <Tab.Screen name='addpost' component={Addpostscreen}
+    options={{
+      tabBarLabel:({color})=>(
+        <Text style={{color:color,fontSize:12, marginBottom:3}}>Add Post</Text>
+      ),
+      tabBarIcon:({color,size})=>(
+        <FontAwesome name="camera" size={size} color={color} />
+      )
+    }}
+    />
+    <Tab.Screen name='profile' component={Profilescreen}
+    options={{
+      tabBarLabel:({color})=>(
+        <Text style={{color:color,fontSize:12, marginBottom:3}}>Profile</Text>
+      ),
+      tabBarIcon:({color,size})=>(
+        <FontAwesome name="user" size={size} color={color} />
+      )
+    }}
+    />
     </Tab.Navigator>
   )
 }
