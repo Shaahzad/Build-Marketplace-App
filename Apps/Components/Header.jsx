@@ -18,8 +18,8 @@ export default function Header() {
         </View>
     </View>
     {/* search */}
-    <View className="p-3 px-5 flex flex-row items-center mt-5 bg-white rounded-full border-[2px] border-blue-200">
-    <Ionicons name="search" size={24} color="gray" />
+    <View className="p-[9px] px-5 flex flex-row items-center mt-5 bg-blue-50 rounded-full border-[2px] border-blue-200">
+    <Ionicons name="search" size={24} color="blue" />
         <TextInput placeholder='Search' className="ml-2 text-[16px]"
         onChangeText={(text)=>console.log(text)}
         />

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Image, ScrollView, ToastAndroid, ActivityIndicator, Alert } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, ToastAndroid, ActivityIndicator, Alert, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { app } from '../../Firebaseconfig';
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
@@ -70,11 +70,12 @@ const onSubmitMethod = async (values) => {
   })
 } 
   return (
-    <View className="p-10">
+    <KeyboardAvoidingView>
+    <ScrollView className="p-10">
       <Text className="text-[25px] font-bold">Add New Post</Text>
       <Text className="text-[16px] text-slate-500 mb-4">Create New Post And Start Selling</Text>
       <Formik initialValues={{title:'', desc:'', category:'', address:'', price:'', image:'', 
-        userName:'', userEmail:'', userImage:''
+        userName:'', userEmail:'', userImage:'', createdAt:Date.now()
       }}
       onSubmit={values => onSubmitMethod(values)}
       validate={(values)=>{
@@ -141,7 +142,8 @@ const onSubmitMethod = async (values) => {
         )}
 
       </Formik>
-    </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
 
