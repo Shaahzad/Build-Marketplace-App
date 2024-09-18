@@ -1,15 +1,19 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 
-export default function LatestItem({latestItem}) {
+export default function LatestItem({latestItem,heading}) {
+  const navigation = useNavigation()
   return (
     <View className='mt-3'>
-      <Text className='text-[20px] font-bold'>Latest Items</Text>
+      <Text className='text-[20px] font-bold'>{heading}</Text>
       <FlatList
       data={latestItem}
       numColumns={2}
       renderItem={({item,index})=>(
-      <TouchableOpacity className='flex-1 m-2 p-2 rounded-lg border-[1px] border-slate-200'>
+      <TouchableOpacity onPress={()=> navigation.push('product-detail',{
+        product: item
+      })} className='flex-1 m-2 p-2 rounded-lg border-[1px] border-slate-200'>
         <Image source={{uri:item.image}}
         className="w-full h-[140px] rounded-lg"/>
         <View>

@@ -1,10 +1,36 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRoute } from '@react-navigation/native'
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore'
+import LatestItem from '../Components/LatestItem'
+import { app } from '../../Firebaseconfig'
 
 export default function Itemlist() {
+  const {params} = useRoute()
+  const db = getFirestore(app)
+  const [itemlist, setItemlist] = useState([])
+
+  useEffect(()=>{
+   params&&getItemlistByCategory()
+  },[params])
+
+  const getItemlistByCategory = async ()=>{
+    setItemlist([])
+    const q = query(collection(db, "UserPost"), where("category", "==", params.category));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      setItemlist(itemlist => [...itemlist, doc.data()])
+    });
+  }
   return (
-    <View>
-      <Text>Itemlist</Text>
+    <View className='p-2'>
+      {
+        itemlist?.length > 0 ? <LatestItem latestItem={itemlist}
+        heading={''}
+        />
+  : <Text className='p-5 mt-2 text-[20px] font-bold text-center text-gray-500 justify-center items-center'>No item found</Text>  
+      }
     </View>
   )
 }
