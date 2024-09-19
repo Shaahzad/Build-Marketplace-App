@@ -24,7 +24,7 @@ export default function ProductDetail({navigation}) {
 
     const shareProduct = async () => {
       const content = {
-        message: product.title+"\n"+product.desc,
+        message: product?.title+"\n"+product?.desc,
       }
       Share.share(content).then((result) => {
         console.log(result)

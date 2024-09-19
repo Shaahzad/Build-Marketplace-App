@@ -6,6 +6,7 @@ import Addpostscreen from '../screens/Addpostscreen';
 import Profilescreen from '../screens/Profilescreen';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import HomeStackNavigation from './HomeStackNavigation';
+import ExplorescreenNavigation from './ExplorescreenNavigation';
 const Tab = createBottomTabNavigator();
 
 export default function Tabnavigation() {
@@ -23,7 +24,7 @@ export default function Tabnavigation() {
       )
     }}
     />
-    <Tab.Screen name='explore' component={Explorescreen}
+    <Tab.Screen name='explore' component={ExplorescreenNavigation}
     options={{
       tabBarLabel:({color})=>(
         <Text style={{color:color,fontSize:12, marginBottom:3}}>Explore</Text>
