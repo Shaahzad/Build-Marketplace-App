@@ -1,14 +1,14 @@
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
-import { useUser } from '@clerk/clerk-expo'
+import { useAuth, useUser } from '@clerk/clerk-expo'
 import Login from '../../assets/Login_.png'
-import search from '../../assets/search.png'
 import product from '../../assets/product.png'
 import { useNavigation } from '@react-navigation/native'
 
 export default function Profilescreen() {
   const {user} = useUser()
   const navigation = useNavigation()
+  const {isloaded, signOut} = useAuth()
   const menuList = [
     {
       id:1,
@@ -18,17 +18,15 @@ export default function Profilescreen() {
     },
     {
       id:2,
-      name:'Explore',
-      icon: search,
-      path: 'explore'
-    },
-    {
-      id:3,
       name:'Logout',
       icon: Login
     }
   ]
   const onMenuPress = (item) => {
+    if(item.name=='Logout'){
+      signOut()
+      return
+    }
     item.path?navigation.navigate(item.path):null
   }
   return (
