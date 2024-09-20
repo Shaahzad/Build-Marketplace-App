@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import Slider from '../Components/Slider'
@@ -12,6 +12,7 @@ export default function Homescreen() {
   const [slider, setSlider] = useState([])
   const [categoryList, setCategoryList] = useState([]);
   const [latestItem, setLatestItem] = useState([]);
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     getSlider();
     getCategoryList();
@@ -29,20 +30,24 @@ export default function Homescreen() {
 
   const getCategoryList = async () => {
     setCategoryList([])
+    setLoading(true)
    const querySnapshot = await getDocs(collection(db, "Category"));
     querySnapshot.forEach((doc) => {
      console.log("DOCS:", doc.data())
      setCategoryList(categoryList=>[...categoryList, doc.data()])
    })
+   setLoading(false)
   }
 
   const getLatestItem = async () => {
     setLatestItem([])
+    setLoading(true)
     const querySnapshot = await getDocs(collection(db, "UserPost"),orderBy("createdAt","desc"));
     querySnapshot.forEach((doc) => {
      console.log("DOCS:", doc.data())
      setLatestItem(latestItem=>[...latestItem, doc.data()])
    })
+   setLoading(false)
   }
   
   return (
