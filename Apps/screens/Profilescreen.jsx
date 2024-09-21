@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth, useUser } from '@clerk/clerk-expo'
 import Login from '../../assets/Login_.png'
 import product from '../../assets/product.png'
@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 export default function Profilescreen() {
   const {user} = useUser()
   const navigation = useNavigation()
+  const [loading , setloading] = useState(false)
   const {isloaded, signOut} = useAuth()
   const menuList = [
     {
@@ -24,6 +25,7 @@ export default function Profilescreen() {
   ]
   const onMenuPress = (item) => {
     if(item.name=='Logout'){
+      setloading(true)
       signOut()
       return
     }

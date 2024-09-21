@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, ToastAndroid, ActivityIndicator, Alert, KeyboardAvoidingView } from 'react-native'
+import {  View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView, ToastAndroid, ActivityIndicator, Alert, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { app } from '../../Firebaseconfig';
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
@@ -45,7 +45,7 @@ const pickImage = async () => {
   }
 };
 
-const onSubmitMethod = async (values) => {
+const onSubmitMethod = async (values, resetForm) => {
   setloading(true)
   const resp = await fetch(image)
   const blob = await resp.blob()
@@ -64,8 +64,16 @@ const onSubmitMethod = async (values) => {
       if(docRef.id){
         setloading(false)
         console.log("Post Added")
-        Alert.alert("Success","Post Added Successfully")
-      }     
+        Alert.alert("Success","Post Added Successfully",[
+          {
+            text:"Ok",
+            onPress: ()=>{
+              resetForm()
+            }
+          }
+        ]) 
+        setImage(null)
+      }    
     })
   })
 } 
@@ -77,7 +85,7 @@ const onSubmitMethod = async (values) => {
       <Formik initialValues={{title:'', desc:'', category:'', address:'', price:'', image:'', 
         userName:'', userEmail:'', userImage:'', createdAt:Date.now()
       }}
-      onSubmit={values => onSubmitMethod(values)}
+      onSubmit={(values, {resetForm}) => onSubmitMethod(values,resetForm)}
       validate={(values)=>{
         const errors = {};
         if(!values.title)
